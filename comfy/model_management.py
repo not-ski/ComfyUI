@@ -259,7 +259,10 @@ current_loaded_models = []
 
 def module_size(module):
     module_mem = 0
-    sd = module.state_dict()
+    try:
+        sd = module.state_dict()
+    except:
+        sd = dict(module.__dict__.items())
     for k in sd:
         t = sd[k]
         module_mem += t.nelement() * t.element_size()
